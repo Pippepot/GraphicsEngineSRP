@@ -26,5 +26,8 @@
     <ClInclude Include="CustomMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="olcPixelGameEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
 #pragma once
 
+#define OLC_PGE_APPLICATION
+#include "olcPixelGameEngine.h"
 #include <math.h>
 using namespace std;
 
@@ -200,6 +202,165 @@ public:
 
 };
 
+struct vec2d
+{
+	float u = 0;
+	float v = 0;
+	float w = 1;
+
+	vec2d()
+	{
+		u = v = 0;
+		w = 1;
+	}
+
+	vec2d(float a, float b, float c = 1)
+	{
+		u = a;
+		v = b;
+		w = c;
+	}
+
+#pragma region Operators
+
+
+	vec2d& operator+=(const vec2d& rhs)
+	{
+		this->u += rhs.u;
+		this->v += rhs.v;
+		return *this;
+	};
+
+	vec2d& operator-=(const vec2d& rhs)
+	{
+		this->u -= rhs.u;
+		this->v -= rhs.v;
+		return *this;
+	};
+
+	vec2d& operator*=(const vec2d& rhs)
+	{
+		this->u *= rhs.u;
+		this->v *= rhs.v;
+		return *this;
+	};
+
+	vec2d& operator/=(const vec2d& rhs)
+	{
+		this->u *= rhs.u;
+		this->v *= rhs.v;
+		return *this;
+	};
+
+	vec2d& operator+(const vec2d& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u + rhs.u;
+		r.v = this->v + rhs.v;
+		return r;
+	};
+
+	vec2d& operator-(const vec2d& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u - rhs.u;
+		r.v = this->v - rhs.v;
+		return r;
+	};
+
+	vec2d& operator*(const vec2d& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u * rhs.u;
+		r.v = this->v * rhs.v;
+		return r;
+	};
+
+	vec2d& operator/(const vec2d& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u / rhs.u;
+		r.v = this->v / rhs.v;
+		return r;
+	};
+
+
+	vec2d& operator+=(const float& rhs)
+	{
+		this->u += rhs;
+		this->v += rhs;
+		return *this;
+	};
+
+	vec2d& operator-=(const float& rhs)
+	{
+		this->u -= rhs;
+		this->v -= rhs;
+		return *this;
+	};
+
+	vec2d& operator*=(const float& rhs)
+	{
+		this->u *= rhs;
+		this->v *= rhs;
+		return *this;
+	};
+
+	vec2d& operator/=(const float& rhs)
+	{
+		this->u /= rhs;
+		this->v /= rhs;
+		return *this;
+	}
+
+	vec2d& operator+(const float& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u + rhs;
+		r.v = this->v + rhs;
+		return r;
+	};
+
+	vec2d& operator-(const float& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u - rhs;
+		r.v = this->v - rhs;
+		return r;
+	};
+
+	vec2d& operator*(const float& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u * rhs;
+		r.v = this->v * rhs;
+		return r;
+	};
+
+	vec2d& operator/(const float& rhs)
+	{
+		vec2d r = { 0,0 };
+		r.u = this->u / rhs;
+		r.v = this->v / rhs;
+		return r;
+	};
+
+
+
+#pragma endregion
+
+
+
+};
+
+struct triangle
+{
+	vec3d p[3];
+	vec2d t[3];
+
+	olc::Pixel col;
+};
+
 float Vector_Dot(vec3d& v1, vec3d& v2)
 {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
@@ -214,13 +375,13 @@ vec3d Vector_Cross(vec3d& v1, vec3d& v2)
 	return v;
 }
 
-vec3d Vector_IntersectPlane(vec3d& plane_p, vec3d& plane_n, vec3d& lineStart, vec3d& lineEnd)
+vec3d Vector_IntersectPlane(vec3d& plane_p, vec3d& plane_n, vec3d& lineStart, vec3d& lineEnd, float &t)
 {
 	plane_n = plane_n.Normalise();
 	float plane_d = -Vector_Dot(plane_n, plane_p);
 	float ad = Vector_Dot(lineStart, plane_n);
 	float bd = Vector_Dot(lineEnd, plane_n);
-	float t = (-plane_d - ad) / (bd - ad);
+	t = (-plane_d - ad) / (bd - ad);
 	vec3d lineStartToEnd = lineEnd - lineStart;
 	vec3d lineToIntersect = lineStartToEnd * t;
 	return lineStart + lineToIntersect;
