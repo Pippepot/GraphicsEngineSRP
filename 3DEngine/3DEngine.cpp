@@ -400,8 +400,7 @@ protected:
 
 				nClippedTriangles = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.1f }, { 0.0f, 0.0f, 1.0f }, triViewed, clipped[0], clipped[1]);
 
-				// We may end up with multiple triangles form the clip, so project as
-				// required
+				// We may end up with multiple triangles from the clip, so project as required
 				for (int n = 0; n < nClippedTriangles; n++)
 				{
 					// Project triangles from 3D --> 2D
@@ -453,13 +452,13 @@ protected:
 			}
 		}
 
-		//// Sort triangles
-		//sort(vecTrianglesToRaster.begin(), vecTrianglesToRaster.end(), [](triangle& t1, triangle& t2)
-		//	{
-		//		float z1 = (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0f;
-		//		float z2 = (t2.p[0].z + t2.p[1].z + t2.p[2].z) / 3.0f;
-		//		return z1 > z2;
-		//	});
+		// Sort triangles
+		sort(vecTrianglesToRaster.begin(), vecTrianglesToRaster.end(), [](triangle& t1, triangle& t2)
+			{
+				float z1 = (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0f;
+				float z2 = (t2.p[0].z + t2.p[1].z + t2.p[2].z) / 3.0f;
+				return z1 > z2;
+			});
 
 		for (auto& triToRaster : vecTrianglesToRaster)
 		{

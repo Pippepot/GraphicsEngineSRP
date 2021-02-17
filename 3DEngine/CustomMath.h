@@ -107,25 +107,6 @@ public:
 		return r;
 	};
 
-	vec3d& operator*(const vec3d& rhs)
-	{
-		vec3d r = { 0,0,0 };
-		r.x = this->x * rhs.x;
-		r.y = this->y * rhs.y;
-		r.z = this->z * rhs.z;
-		return r;
-	};
-
-	vec3d& operator/(const vec3d& rhs)
-	{
-		vec3d r = { 0,0,0 };
-		r.x = this->x / rhs.x;
-		r.y = this->y / rhs.y;
-		r.z = this->z / rhs.z;
-		return r;
-	};
-
-
 	vec3d& operator+=(const float& rhs)
 	{
 		this->x += rhs;
